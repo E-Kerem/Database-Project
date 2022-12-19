@@ -22,7 +22,7 @@ session_start();
 
     echo "<h2> $booktitle </h2>";
 
-    $sql = "SELECT R.title, R.body FROM review R, has H, book B WHERE R.review_id = H.review_id AND B.book_id = H.book_id ";
+    $sql = "SELECT R.title, R.body FROM review R, has H, book B WHERE R.review_id = H.review_id AND B.book_id = H.book_id AND B.title = '$booktitle'";
     $result = mysqli_query($conn, $sql);
 
     if($result-> num_rows > 0){
