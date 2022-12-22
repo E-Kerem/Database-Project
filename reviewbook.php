@@ -9,7 +9,7 @@ session_start();
     <title>Reviews</title>
 </head>
 <body>
-
+<a href="home.php">Home</a>
 
     <?php
 
