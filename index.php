@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
+<title>LOGIN</title>
 <style>
-    <title>LOGIN</title>
 		/* Add some styling for the login form */
 		#login-form {
 			border: 1px solid blue;
