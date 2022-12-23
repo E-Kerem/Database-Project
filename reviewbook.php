@@ -12,7 +12,8 @@ session_start();
 <a href="home.php">Home</a>
 
     <?php
-
+    $reviewCount = 0;
+    $reviewTotal = 0;
     function validate($data){
         $data = trim($data);
         $data = stripslashes($data);
@@ -20,8 +21,10 @@ session_start();
     }
     $booktitle = validate($_GET['booktitle']);
     $genrename = validate($_GET['genrename']);
+    $bookrating = validate($_GET['bookrating']);
 
-    echo "<h2> $booktitle </h2>";
+
+    echo "<h2> $booktitle  Rating: $bookrating</h2>";
 
     $sql = "SELECT R.title, R.body FROM review R, has H, book B WHERE R.review_id = H.review_id AND B.book_id = H.book_id AND B.title = '$booktitle'";
     $result = mysqli_query($conn, $sql);
@@ -29,7 +32,7 @@ session_start();
         while($row = $result -> fetch_assoc()){
             $reviewtitle = $row["title"];
             $reviewbody = $row["body"];
-
+            $reviewCount += 1;
             echo "<br>", $reviewtitle, "<br>", $reviewbody ,"<br>";
         }
     }
@@ -40,10 +43,23 @@ session_start();
         <?php if (isset($_GET['error'])){ ?>
             <p class = "error"><?php echo  $_GET['error']; ?></p>
         <?php }?>
+
         <textarea name="titleTextArea" cols="30" rows="2" placeholder="Title of the review"></textarea>
         <br>
         <textarea name="reviewTextArea" cols="30" rows="10" placeholder="Leave a review"></textarea>
+        <br>
+        <p>Your rating :
+        <select name="rating" id="rating">
+            <option value="rate">Rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
 
+        </select>
+        </p>
+        <br>
         <button type="submit">Submit</button>
 
     </form>
@@ -53,15 +69,21 @@ session_start();
 
     $reviewTextArea = validate($_POST['reviewTextArea']);
     $titleTextArea = validate($_POST['titleTextArea']);
+    $rating = validate($_POST['rating']);
 
 
     if (empty($titleTextArea)){
         echo "Title can't be empty";
 
+        echo $reviewCount;
+
     }
     else if (empty($reviewTextArea)){
         echo "Review can't be empty";
 
+    }
+    else if($rating == "rate"){
+        echo "Please rate the book";
 
     }
     else{
@@ -77,7 +99,7 @@ session_start();
         $row = mysqli_fetch_assoc($result);
 
         $book_id = $row['book_id'];
-
+        $titleTextArea .= "\t\t- " . $_SESSION['name'] . ":\t Rated: " . $rating;
 
         $sql = "INSERT INTO review (review_id, title, body) values ('$max', '$titleTextArea', '$reviewTextArea')";
         mysqli_query($conn, $sql);
@@ -85,6 +107,13 @@ session_start();
         $sql = "INSERT INTO has (review_id, book_id) values ('$max', '$book_id')";
         mysqli_query($conn, $sql);
 
+
+        $reviewTotal = $reviewCount * $bookrating;
+        $reviewTotal = $reviewTotal + intval($rating);
+        $finalRating = $reviewTotal / ($reviewCount + 1);
+
+        $sql = "UPDATE book SET rating = '$finalRating' WHERE title = '$booktitle'";
+        mysqli_query($conn, $sql);
         header("Location: home.php?error=Review successfully submitted");
 
 

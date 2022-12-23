@@ -16,7 +16,7 @@ session_start();
 <?php }?>
 
 <table>
-    <?php $sql = "SELECT B.title, G.genre_name FROM book B, genre G, belongs BE WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id  ";
+    <?php $sql = "SELECT B.title, G.genre_name, B.rating FROM book B, genre G, belongs BE WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id  ";
 
     $result =  mysqli_query($conn, $sql );
 
@@ -24,8 +24,9 @@ session_start();
         while ($row = $result-> fetch_assoc()){
             $booktitle = $row["title"];
             $genrename = $row["genre_name"];
+            $bookrating = $row["rating"];
             echo "<tr><td>Book title: ", $row["title"], "</td>
-                            <td>Book genre: ", $row["genre_name"], "<a href='reviewbook.php?booktitle=", $booktitle, "&genrename=",$genrename, "'>Review</a>
+                            <td>Book genre: ", $row["genre_name"],"<td> Book Rating : ", $row['rating'], "<a href='reviewbook.php?booktitle=", $booktitle, "&genrename=",$genrename, "&bookrating=", $bookrating, "'>   Review</a>
 </td> </tr>  ";
         }
     }else {
