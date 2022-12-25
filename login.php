@@ -22,6 +22,9 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     }
     else{
         $sql = "SELECT * FROM registered WHERE email = '$email' AND hashed_password = '$pass'";
+        $author_sql = "SELECT A.name FROM author A, registered R WHERE A.user_id = R.user_id ";
+
+        $author_result = mysqli_query($conn, $author_sql );
 
         $result = mysqli_query($conn, $sql );
 
@@ -31,6 +34,12 @@ if(isset($_POST['email']) && isset($_POST['password'])){
             if (strcasecmp($row['email'],$email) == 0 &&$row['hashed_password'] == $pass){
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['name'] = $row['name'];
+
+                if(mysqli_num_rows($author_result)){
+                    $_SESSION['author'] = "yeye";
+                    $_SESSION['money_amount'] = "a";
+                }
+
                 header("Location: home.php");
                 exit();
 
