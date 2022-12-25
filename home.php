@@ -10,40 +10,39 @@ session_start();
 </head>
 <body>
 
-<h2>Welcome <?php
-    echo  $_SESSION['name'];
-    echo $_SESSION['author'];
-
-    echo $_SESSION['money_amount'];
-    ?>
-    <?php if (isset($_GET['error'])){ ?>
-        <p class = "error"><?php echo  $_GET['error']; ?></p>
-    <?php }?>
-</h2>
-
+<h2>Welcome <?php echo  $_SESSION['name']; ?> - Wallet: $<?php  echo $_SESSION['wallet']?></h2>
+<?php if (isset($_GET['error'])){ ?>
+    <p class = "error"><?php echo  $_GET['error']; ?></p>
+<?php }?>
+<a href="purchasedBooks.php">Purchased books</a> <a href="addmoney.php">Add money</a> <a href="index.php">Logout</a> <a href="deleteaccount.php"> Delete my account</a>
 <a href="search.php">Search</a>
 <a href="author.php">Author</a>
 <a href="reports.php">Reports</a>
+<br>
 
 <table>
-    <?php $sql = "SELECT B.title, G.genre_name, B.rating FROM book B, genre G, belongs BE WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id  ";
-
-    $result =  mysqli_query($conn, $sql );
+    <?php
 
 
 
-    if ($result->num_rows > 0 ){
-        while ($row = $result-> fetch_assoc()){
-            $booktitle = $row["title"];
-            $genrename = $row["genre_name"];
-            $bookrating = $row["rating"];
-            echo "<tr><td>Book title: ", $row["title"], "</td>
-                            <td>Book genre: ", $row["genre_name"],"<td> Book Rating : ", $row['rating'], "<a href='reviewbook.php?booktitle=", $booktitle, "&genrename=",$genrename, "&bookrating=", $bookrating, "'>   Review</a>
-</td> </tr>  ";
-        }
-    }else {
-        echo "No Results";
-    }
+    $sql = "SELECT * FROM normal_book_view";
+    $result = mysqli_query($conn, $sql);
+
+    echo "<table>";
+while ($row = $result->fetch_assoc()) {
+  $bookid = $row["book_id"];
+  $booktitle = $row["title"];
+  $genrename = $row["genre_name"];
+  $bookrating = $row["rating"];
+  echo "<tr><td>Book title: ", $row["title"], "</td>
+                    <td>Book genre: ", $row["genre_name"], "</td>
+                    <td>Book Rating : ", $row['rating'], "</td>
+                    <td><a href='reviewbook.php?booktitle=", $booktitle, "&genrename=",$genrename, "&bookrating=", $bookrating, "&bookprice=",  "&bookid=", $bookid, "'>   Review</a></td>
+                </tr>";
+}
+echo "</table>";
+
+
     ?>
 </table>
 <form action="publishbook.php" method="post">

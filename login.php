@@ -36,6 +36,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
             if (strcasecmp($row['email'],$email) == 0 &&$row['hashed_password'] == $pass){
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['name'] = $row['name'];
+
                 $name = $row['name'];
 
                 $author_sql = "SELECT * FROM author A WHERE A.name = '$name'";
@@ -52,6 +53,8 @@ if(isset($_POST['email']) && isset($_POST['password'])){
                     $_SESSION['money_amount'] = "";
                     $_SESSION['author'] = "";
                 }
+                $_SESSION['wallet'] = $row['wallet'];
+
 
                 header("Location: home.php");
                 exit();
