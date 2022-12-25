@@ -1,7 +1,6 @@
 <?php
 include ("db_connection.php");
 session_start();
-
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +19,8 @@ session_start();
     <?php $sql = "SELECT B.book_id, B.title, G.genre_name, B.rating, EB.price  FROM book B, genre G, belongs BE, ebook EB WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id AND EB.book_id = B.book_id ";
 
     $result =  mysqli_query($conn, $sql );
+
+
 
     if ($result->num_rows > 0 ){
         while ($row = $result-> fetch_assoc()){

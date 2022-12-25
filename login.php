@@ -22,6 +22,9 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     }
     else{
         $sql = "SELECT * FROM registered WHERE email = '$email' AND hashed_password = '$pass'";
+        $author_sql = "SELECT A.name FROM author A, registered R WHERE A.user_id = R.user_id ";
+
+        $author_result = mysqli_query($conn, $author_sql );
 
         $result = mysqli_query($conn, $sql );
 
