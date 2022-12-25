@@ -114,7 +114,7 @@ session_start();
     <a href="#">Logout</a>
 
 </div>
-<form action="publishbook.inc.php" method="post">
+
 <body>
 
 <form action="publishbook.inc.php" method="post" enctype="multipart/form-data">
@@ -165,8 +165,8 @@ session_start();
         <div class="element">
             <label>Or either go back:</label>
             <button class = "publish-button">
-                <a href="home.php"></a>
-                Go Back
+                <a href="home.php">Go Back</a>
+
             </button>
         </div>
 

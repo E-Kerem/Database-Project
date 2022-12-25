@@ -1,6 +1,8 @@
 <?php
 include ("db_connection.php");
+session_destroy();
 session_start();
+
 
 if(isset($_POST['email']) && isset($_POST['password'])){
 
@@ -22,9 +24,9 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     }
     else{
         $sql = "SELECT * FROM registered WHERE email = '$email' AND hashed_password = '$pass'";
-        $author_sql = "SELECT A.name FROM author A, registered R WHERE A.user_id = R.user_id ";
 
-        $author_result = mysqli_query($conn, $author_sql );
+
+
 
         $result = mysqli_query($conn, $sql );
 
@@ -34,7 +36,26 @@ if(isset($_POST['email']) && isset($_POST['password'])){
             if (strcasecmp($row['email'],$email) == 0 &&$row['hashed_password'] == $pass){
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['name'] = $row['name'];
+
+                $name = $row['name'];
+
+                $author_sql = "SELECT * FROM author A WHERE A.name = '$name'";
+                $author_result = mysqli_query($conn, $author_sql );
+
+
+                if(mysqli_num_rows($author_result)){
+                    $row1 = mysqli_fetch_assoc($author_result);
+                    $_SESSION['money_amount'] = $row1['money_amount'];
+                    $_SESSION['author'] = $row1['name'];
+
+                }
+                else{
+                    $_SESSION['money_amount'] = "";
+                    $_SESSION['author'] = "";
+                }
                 $_SESSION['wallet'] = $row['wallet'];
+
+
                 header("Location: home.php");
                 exit();
 

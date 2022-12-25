@@ -23,11 +23,31 @@ session_start();
     $booktitle = validate($_GET['booktitle']);
     $genrename = validate($_GET['genrename']);
     $bookrating = validate($_GET['bookrating']);
-    $bookprice = validate($_GET['bookprice']);
     $bookid = validate($_GET['bookid']);
+    $userid = $_SESSION["user_id"];
+    $check = 0;
 
+    $sql = "SELECT price FROM book_view WHERE book_id = '$bookid'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $bookprice = $row['price'];
 
-    echo "<h2> $booktitle  Rating: $bookrating Price: $bookprice</h2> ", "<a href='purchasebook.php?book_id=", $bookid," '>Purchase this book</a>";
+    $sql = "SELECT B.book_id  FROM book B, genre G, belongs BE, ebook EB, purchase P WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id AND EB.book_id = B.book_id AND P.user_id = '$userid' AND P.book_id = B.book_id ";
+    $result = mysqli_query($conn, $sql);
+    if($result-> num_rows > 0){
+        while($row = $result -> fetch_assoc()){
+            $book_id_check = $row["book_id"];
+            if ($bookid == $book_id_check)
+                $check = 1;
+        }
+    }
+    if ($check == 0){
+        echo "<h2> $booktitle  Rating: $bookrating Price:$$bookprice</h2> ", "<a href='purchasebook.php?book_id=", $bookid,"&bookprice=", $bookprice, "&bookid=", $bookid, " '>Purchase this book</a>";
+    }
+    else{
+        echo "<h2> $booktitle  Rating: $bookrating Price: $bookprice</h2> ", "You already have this book";
+    }
+
 
     $sql = "SELECT R.title, R.body FROM review R, has H, book B WHERE R.review_id = H.review_id AND B.book_id = H.book_id AND B.title = '$booktitle'";
     $result = mysqli_query($conn, $sql);

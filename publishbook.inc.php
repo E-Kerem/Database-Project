@@ -61,7 +61,7 @@ if ($file_type=="application/pdf") {
 
 else {
 
-    header("Location: publishbook.php?error=You may only upload PDF files");
+    header("Location: publishbook.php?error=You may only upload PDF files, $file_type ");
     exit();
 
 }

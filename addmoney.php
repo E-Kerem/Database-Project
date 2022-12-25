@@ -110,7 +110,7 @@ session_start();
 <h2>Your Wallet: $<?php  echo $_SESSION['wallet']?></h2>
 <a href="home.php">Home</a>
 <form action='' method="POST">
-    <p> Do you want to add money to your wallet ?? </p>
+    <p> Write the amoun of money to add your wallet below. </p>
     <input type="number" min="1" name = "price" placeholder="Price" step="any" class="input-box" />
     <button class="publish-button" type="submit">Add</button>
 </form>
