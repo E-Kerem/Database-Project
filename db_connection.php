@@ -2,8 +2,8 @@
 
 $sname = "localhost";
 $uname = "root";
-$password = "1231";
-$db_name = "groupdatabase2";
+$password = "";
+$db_name = "groupdatabase3";
 
 $conn = mysqli_connect($sname, $uname, $password, $db_name);
 
