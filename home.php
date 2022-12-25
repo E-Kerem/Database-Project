@@ -10,7 +10,11 @@ session_start();
 </head>
 <body>
 
-<h2>Welcome <?php echo  $_SESSION['name']; ?> - Wallet: $<?php  echo $_SESSION['wallet']?></h2>
+<?php if ($_SESSION['money_amount'] >= 0)
+    echo "<h2> Welcome ", $_SESSION["name"], " - Wallet: $", $_SESSION["wallet"], " - Author Account: $", $_SESSION["money_amount"], "</h2>";
+        else
+            echo "<h2> Welcome ", $_SESSION["name"], " Wallet: $", $_SESSION["wallet"], "</h2>"; ?>
+
 <?php if (isset($_GET['error'])){ ?>
     <p class = "error"><?php echo  $_GET['error']; ?></p>
 <?php }?>

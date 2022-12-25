@@ -131,12 +131,12 @@ session_start();
 
             $name = $_POST['name'];
 
-            $sql =              "SELECT A.name, A.money_amount FROM author A
+            $sql =              "SELECT A.name, A.money_amount, A.user_id FROM author A
                              WHERE A.name  LIKE '$name%'" ;
 
         }
         else{
-            $sql =              "SELECT * FROM author" ;
+            $sql ="SELECT * FROM author" ;
 
         }
         $result =  mysqli_query($conn, $sql );
@@ -144,10 +144,9 @@ session_start();
         if ($result->num_rows > 0 ){
             while ($row = $result-> fetch_assoc()){
                 $name = $row["name"];
-
+                $userid = $row["user_id"];
                 echo "<tr>
-                      <td>Author : ", $row["name"], "</td>
-                      <td>Balance : ", $row["money_amount"], "</td>      
+                      <td>  Author :<a href='authorbooks.php?user_id=$userid&name=$name' > ", $row["name"], "</td> 
 
                          </tr> ";
             }
