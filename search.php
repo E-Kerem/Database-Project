@@ -30,20 +30,36 @@ session_start();
         <option value="romance">Romance</option>
     </select>
     <br>
+    <label>From:</label>
+    <input type = "date" name = "publishDate1" id="publishDate1"  placeholder="From">
+    <br>
+    <label>To:</label>
+    <input type = "date" name = "publishDate2" id="publishDate2"  placeholder="To">
+    <br>
+
     <button type = "submit" name="test" id="test"  > Search</button>
 
     <table>
         <?php
         $title = "";
         $genre = "";
+        $date = "";
 
         if(array_key_exists('test',$_POST)){
 
             $title = $_POST['bookTitle'];
             $genre = $_POST['genre'];
+            $date1 = $_POST['publishDate1'];
+            $date2 = $_POST['publishDate2'];
+
+            echo $date1;
+            echo "\n";
+            echo $date2;
+
             $sql =              "SELECT B.title, G.genre_name FROM book B, genre G, belongs BE 
                              WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id
-                                    AND B.title LIKE '$title%' AND G.genre_name LIKE '$genre%'" ;
+                                    AND B.title LIKE '$title%' AND G.genre_name LIKE '$genre%'
+                                    AND B.publish_date BETWEEN '$date1' AND '$date2'" ;
 
         }
         else{

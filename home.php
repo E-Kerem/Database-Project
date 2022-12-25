@@ -9,19 +9,22 @@ session_start();
     <title>HOME PAGE</title>
 </head>
 <body>
+<<<<<<< HEAD
 <h2>Welcome <?php
     echo  $_SESSION['name'];
     echo $_SESSION['author'];
     echo $_SESSION['money_amount'];
     ?>
+    <?php if (isset($_GET['error'])){ ?>
+        <p class = "error"><?php echo  $_GET['error']; ?></p>
+    <?php }?>
 </h2>
 
 <a href="search.php">Search</a>
 <a href="author.php">Author</a>
 
-
 <table>
-    <?php $sql = "SELECT B.title, G.genre_name FROM book B, genre G, belongs BE WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id  ";
+    <?php $sql = "SELECT B.title, G.genre_name, B.rating FROM book B, genre G, belongs BE WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id  ";
 
     $result =  mysqli_query($conn, $sql );
 
@@ -31,14 +34,10 @@ session_start();
         while ($row = $result-> fetch_assoc()){
             $booktitle = $row["title"];
             $genrename = $row["genre_name"];
+            $bookrating = $row["rating"];
             echo "<tr><td>Book title: ", $row["title"], "</td>
-                            <td>Book genre: ", $row["genre_name"], "<form class = 'form-inline'action = 'reviewbook.php' method = 'post'>
-                         <input type = 'hidden' name = 'booktitle' value = '$booktitle'>
-                         <input type = 'hidden' name = 'genrename' value='$genrename'>
-                         <button type = 'submit'> Reviews </button>
-</form></td>
-                       
-                         </tr> ";
+                            <td>Book genre: ", $row["genre_name"],"<td> Book Rating : ", $row['rating'], "<a href='reviewbook.php?booktitle=", $booktitle, "&genrename=",$genrename, "&bookrating=", $bookrating, "'>   Review</a>
+</td> </tr>  ";
         }
     }else {
         echo "No Results";
