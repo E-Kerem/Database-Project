@@ -1,7 +1,6 @@
 <?php
 include ("db_connection.php");
 session_start();
-
 ?>
 
 <!DOCTYPE html>
@@ -10,15 +9,26 @@ session_start();
     <title>HOME PAGE</title>
 </head>
 <body>
-<h2>Welcome <?php echo  $_SESSION['name']; ?></h2>
-<?php if (isset($_GET['error'])){ ?>
-    <p class = "error"><?php echo  $_GET['error']; ?></p>
-<?php }?>
+<<<<<<< HEAD
+<h2>Welcome <?php
+    echo  $_SESSION['name'];
+    echo $_SESSION['author'];
+    echo $_SESSION['money_amount'];
+    ?>
+    <?php if (isset($_GET['error'])){ ?>
+        <p class = "error"><?php echo  $_GET['error']; ?></p>
+    <?php }?>
+</h2>
+
+<a href="search.php">Search</a>
+<a href="author.php">Author</a>
 
 <table>
     <?php $sql = "SELECT B.title, G.genre_name, B.rating FROM book B, genre G, belongs BE WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id  ";
 
     $result =  mysqli_query($conn, $sql );
+
+
 
     if ($result->num_rows > 0 ){
         while ($row = $result-> fetch_assoc()){
