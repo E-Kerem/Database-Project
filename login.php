@@ -34,12 +34,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
             if (strcasecmp($row['email'],$email) == 0 &&$row['hashed_password'] == $pass){
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['name'] = $row['name'];
-
-                if(mysqli_num_rows($author_result)){
-                    $_SESSION['author'] = "yeye";
-                    $_SESSION['money_amount'] = "a";
-                }
-
+                $_SESSION['wallet'] = $row['wallet'];
                 header("Location: home.php");
                 exit();
 

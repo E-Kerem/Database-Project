@@ -56,7 +56,7 @@ if ($check){
 
         $max = $num['maxNum'];
         $max = $max + 1;
-        $sql = "INSERT INTO registered (user_id, name, hashed_password, email) values ('$max', '$uname', '$password', '$email')";
+        $sql = "INSERT INTO registered (user_id, name, hashed_password, email, wallet) values ('$max', '$uname', '$password', '$email', '0')";
         mysqli_query($conn, $sql);
         $sql = "INSERT INTO user (user_id) values ('$max')";
         mysqli_query($conn, $sql);
