@@ -10,6 +10,7 @@ session_start();
 </head>
 <body>
 <a href="home.php">Home</a>
+<a href="index.php">Logout</a>
 
     <?php
     $reviewCount = 0;
@@ -22,9 +23,11 @@ session_start();
     $booktitle = validate($_GET['booktitle']);
     $genrename = validate($_GET['genrename']);
     $bookrating = validate($_GET['bookrating']);
+    $bookprice = validate($_GET['bookprice']);
+    $bookid = validate($_GET['bookid']);
 
 
-    echo "<h2> $booktitle  Rating: $bookrating</h2>";
+    echo "<h2> $booktitle  Rating: $bookrating Price: $bookprice</h2> ", "<a href='purchasebook.php?book_id=", $bookid," '>Purchase this book</a>";
 
     $sql = "SELECT R.title, R.body FROM review R, has H, book B WHERE R.review_id = H.review_id AND B.book_id = H.book_id AND B.title = '$booktitle'";
     $result = mysqli_query($conn, $sql);
@@ -75,7 +78,6 @@ session_start();
     if (empty($titleTextArea)){
         echo "Title can't be empty";
 
-        echo $reviewCount;
 
     }
     else if (empty($reviewTextArea)){

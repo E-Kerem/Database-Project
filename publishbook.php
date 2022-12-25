@@ -103,6 +103,7 @@ session_start();
 <head>
     <title>HOME PAGE</title>
 </head>
+
 <body><!-- Navigation bar -->
 <div class="navbar">
     <a href="#">HomePage</a>
@@ -111,8 +112,16 @@ session_start();
     <a href="#">Reviews</a>
     <a href="#">Profile</a>
     <a href="#">Logout</a>
+    
 </div>
 <form action="publishbook.inc.php" method="post">
+<body>
+
+<form action="publishbook.inc.php" method="post" enctype="multipart/form-data">
+    <?php if (isset($_GET['error'])){ ?>
+        <p class = "error"><?php echo  $_GET['error']; ?></p>
+    <?php }?>
+
     <br>
     <div class="publish-form">
         <div class="publish-text">
@@ -124,6 +133,17 @@ session_start();
     <input type = "text" name = "bookTitle" placeholder="Enter Book Title">
             </div>
         <div class="element">
+            <label>Book Price:</label>
+            <br>
+            <input type="number" min="1" name = "bookPrice" placeholder="Price" step="any" />
+        </div>
+        <div class="element">
+            <label>Pdf File:</label>
+            <br>
+            <input type="file" name="file" size="50" />
+
+        </div>
+        <div class="element">
         <label>Select Genre:</label>
     <select name="genre" id="genre">
         <option value="action">Action</option>
@@ -133,6 +153,7 @@ session_start();
         <option value="horror">Horror</option>
         <option value="romance">Romance</option>
     </select>
+
         </div>
 
         <div class="element">
@@ -154,6 +175,8 @@ session_start();
                 <p class = "error"><?php echo  $_GET['error']; ?></p>
             <?php }?>
         </div>
+
+
 
 
 
