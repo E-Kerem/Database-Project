@@ -40,9 +40,10 @@
 		}
 		/* Align the input fields and "Forgot password" button horizontally */
 		#login-form > * {
-			display: flex;
-			align-items: center;
-		}
+            display: flex;
+            align-items: center;
+        }
+
 		/* Style the login title */
 		h2 {
 			margin-bottom: 20px;

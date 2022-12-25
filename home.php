@@ -9,10 +9,11 @@ session_start();
     <title>HOME PAGE</title>
 </head>
 <body>
-<<<<<<< HEAD
+
 <h2>Welcome <?php
     echo  $_SESSION['name'];
     echo $_SESSION['author'];
+
     echo $_SESSION['money_amount'];
     ?>
     <?php if (isset($_GET['error'])){ ?>
@@ -22,6 +23,7 @@ session_start();
 
 <a href="search.php">Search</a>
 <a href="author.php">Author</a>
+<a href="reports.php">Reports</a>
 
 <table>
     <?php $sql = "SELECT B.title, G.genre_name, B.rating FROM book B, genre G, belongs BE WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id  ";
@@ -46,10 +48,14 @@ session_start();
 </table>
 <form action="publishbook.php" method="post">
     <br>
-    <button type = "submit"> Publish Book</button>
+
+    <?php
+    if ($_SESSION['money_amount'] >= 0)
+
+        echo '<button type = "submit"> Publish Book</button>'
+
+    ?>
 </form>
-
-
 </form>
 </body>
 </html>
