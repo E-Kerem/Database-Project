@@ -112,7 +112,7 @@ session_start();
     <a href="#">Reviews</a>
     <a href="#">Profile</a>
     <a href="#">Logout</a>
-    
+
 </div>
 <form action="publishbook.inc.php" method="post">
 <body>
