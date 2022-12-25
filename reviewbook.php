@@ -136,6 +136,7 @@ session_start();
 
         $sql = "UPDATE book SET rating = '$finalRating' WHERE title = '$booktitle'";
         mysqli_query($conn, $sql);
+
         header("Location: home.php?error=Review successfully submitted");
 
 

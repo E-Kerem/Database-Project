@@ -17,7 +17,6 @@ session_start();
         font-size: 18px;
         color: black;
     }
-
     .navbar a {
         display: flex;
         align-items: center;
@@ -191,6 +190,21 @@ session_start();
     <button type="submit"> Publish Book</button>
 </form>
 </form>
+
+
+<?php if ($_SESSION['money_amount'] >= 0)
+    echo "<h2> Welcome ", $_SESSION["name"], " - Wallet: $", $_SESSION["wallet"], " - Author Account: $", $_SESSION["money_amount"], "</h2>";
+        else
+            echo "<h2> Welcome ", $_SESSION["name"], " Wallet: $", $_SESSION["wallet"], "</h2>"; ?>
+
+<?php if (isset($_GET['error'])){ ?>
+    <p class = "error"><?php echo  $_GET['error']; ?></p>
+<?php }?>
+<a href="purchasedBooks.php">Purchased books</a> <a href="addmoney.php">Add money</a> <a href="index.php">Logout</a> <a href="deleteaccount.php"> Delete my account</a>
+<a href="search.php">Search</a>
+<a href="author.php">Author</a>
+<a href="reports.php">Reports</a>
+<br>
 
 
 </body>
