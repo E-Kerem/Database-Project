@@ -74,6 +74,7 @@
 
 <form action="register.php" method="post">
     <br>
+    <p>Not a member</p>
     <button type = "submit"> Register</button>
 </form>
 </body>
