@@ -10,7 +10,9 @@ session_start();
 </head>
 <body>
 <h2>Search</h2>
-
+<a href="home.php">Home</a>
+<a href="author.php">Author</a>
+<a href="reports.php">Reports</a>
 <form  method="post">
     <?php if (isset($_GET['error'])){ ?>
         <p class = "error"><?php echo  $_GET['error']; ?></p>

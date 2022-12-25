@@ -89,8 +89,12 @@ else {
     $sql = "INSERT INTO belongs (book_id, genre_id) values ('$max', '$idOfGenre')";
     mysqli_query($conn, $sql);
 
+    $userid = $_SESSION["user_id"];
+    $sql = "INSERT INTO publish (user_id, book_id) values ('$userid', '$max')";
+    mysqli_query($conn, $sql);
 
-    header("Location: publishbook.php?error=Successfully published book $bookTitle");
+
+    header("Location: home.php?error=Successfully published book $bookTitle");
 
 
 

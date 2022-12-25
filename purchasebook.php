@@ -47,6 +47,18 @@ session_start();
 
             $sql = "INSERT INTO purchase (user_id, book_id, purchase_date) values ('$userid', '$bookid', '$date')";
             mysqli_query($conn, $sql);
+
+
+            $sql = "SELECT U.user_id, U.money_amount  FROM book B, publish P, author U WHERE B.book_id = P.book_id AND U.user_id = P.user_id AND B.book_id = '$bookid' ";
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($result);
+
+            $authorid =  $row["user_id"];
+            $authormoney = $row["money_amount"];
+            $newmoney = $price + $authormoney;
+
+            $sql = "UPDATE author SET money_amount = '$newmoney' WHERE user_id = '$authorid'";
+            mysqli_query($conn, $sql);
             header("Location: home.php?error=You have successfully purchased ");
 
         }
@@ -56,6 +68,17 @@ session_start();
     }
     else{
         $sql = "INSERT INTO purchase (user_id, book_id, purchase_date) values ('$userid', '$bookid', '$date')";
+        mysqli_query($conn, $sql);
+
+        $sql = "SELECT U.user_id, U.money_amount  FROM book B, publish P, author U WHERE B.book_id = P.book_id AND U.user_id = P.user_id AND B.book_id = '$bookid' ";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+
+        $authorid =  $row["user_id"];
+        $authormoney = $row["money_amount"];
+        $newmoney = $price + $authormoney;
+
+        $sql = "UPDATE author SET money_amount = '$newmoney' WHERE user_id = '$authorid'";
         mysqli_query($conn, $sql);
         header("Location: home.php?error=You have successfully purchased ");
     }

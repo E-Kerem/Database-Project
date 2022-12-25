@@ -18,6 +18,13 @@
 
     <label> Password </label>
     <input type = "password" name = "password" placeholder="Password">
+
+    <label> User Type </label>
+    <select name="usertype" id="usertype">
+        <option value="0">User Type</option>
+        <option value="1">Author</option>
+        <option value="2">Reader</option>
+    </select>
     <button type = "submit"> Register </button>
 </form>
 
