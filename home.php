@@ -29,7 +29,7 @@ session_start();
             $bookrating = $row["rating"];
             $bookprice = $row["price"];
             echo "<tr><td>Book title: ", $row["title"], "</td>
-                            <td>Book genre: ", $row["genre_name"],"<td> Book Rating : ", $row['rating'],"<td> Price: ", $row['price'],  "<a href='reviewbook.php?booktitle=", $booktitle, "&genrename=",$genrename, "&bookrating=", $bookrating, "&bookprice=", $bookprice, "&bookid=", $bookid, "'>   Review</a>
+                            <td>Book genre: ", $row["genre_name"],"<td> Book Rating : ", $row['rating'],"<td> Price: $", $row['price'],  "<a href='reviewbook.php?booktitle=", $booktitle, "&genrename=",$genrename, "&bookrating=", $bookrating, "&bookprice=", $bookprice, "&bookid=", $bookid, "'>   Review</a>
 </td> </tr>  ";
         }
     }else {
