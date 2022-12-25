@@ -13,7 +13,7 @@ session_start();
 <?php if (isset($_GET['error'])){ ?>
     <p class = "error"><?php echo  $_GET['error']; ?></p>
 <?php }?>
-<a href="purchasedBooks.php">Purchased books</a> <a href="addmoney.php">Add money</a> <a href="index.php">Logout</a>
+<a href="purchasedBooks.php">Purchased books</a> <a href="addmoney.php">Add money</a> <a href="index.php">Logout</a> <a href="deleteaccount.php"> Delete my account</a>
 <br>
 <table>
     <?php $sql = "SELECT B.book_id, B.title, G.genre_name, B.rating, EB.price  FROM book B, genre G, belongs BE, ebook EB WHERE BE.book_id = B.book_id AND G.genre_id = BE.genre_id AND EB.book_id = B.book_id ";
