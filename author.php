@@ -98,8 +98,8 @@ session_start();
             $name = $row["name"];
             $userid = $row["user_id"];
             echo "
-            <tr>
-            <td class='class1'>  Author :<a class='class1' href='authorbooks.php?user_id = $userid&name = $name'> ", $row["name"], "</td>
+            <tr class='class1'>
+            <td> Author :<a href='authorbooks.php?user_id=$userid&name=$name' > ", $row["name"], "</td> 
             </tr> ";
         }
     } else {
