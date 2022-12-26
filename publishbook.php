@@ -2,102 +2,109 @@
 session_start();
 ?>
 <style>
-    /* Add some style to the navigation bar */
+    /* Style the navigation bar */
     .navbar {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center; /* center horizontally */
+        height: 60px;
+        background-color: deepskyblue;
+        color: #fff;
         font-size: 18px;
-        color: black;
     }
 
     .navbar a {
-        display: flex;
-        align-items: center;
-        color: black;
+        display: block;
+        padding: 0 20px;
+        color: #fff;
         text-decoration: none;
-        padding: 10px 20px;
-        position: relative;
+        line-height: 60px;
     }
 
     .navbar a:hover {
-        padding: 0 20px;
-    }
-    /* Add a solid line under the text */
-    .navbar a::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: blue;
-        transform: scaleX(0); /* initially hide the line */
-        transition: transform 250ms ease-in-out; /* add a transition effect */
+        background-color: #555;
     }
 
-    /* Show the line when the cursor is hovering over the element */
-    .navbar a:hover::before {
-        transform: scaleX(1); /* show the line */
+    /* Style the publish form */
+    .publish-form {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #eee;
+        border-radius: 5px;
     }
 
-
-
-    .profile-photo {
-        border-radius: 50%; /* round the corners of the photo */
-        width: 80px; /* set the width of the photo */
-        height: 80px; /* set the height of the photo */
+    body {
+        padding: 0;
+        margin: 0;
     }
 
-    .back-button{
-        alignment: right;
-        margin-top: 15px;
-        color: #0066ff;
+    /* Style the form elements */
+    .element {
+        margin: 20px 0;
     }
 
-    .publish-form{
-        width: 80%;
-        margin-left: 10%;
-        height: auto;
-        display: inline-block;
-        color: green;
-    }
-    .publish-text{
-        alignment: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .element{
-        display: flex;
-        margin-left: 40%;
-        margin-bottom: 10px;
-    }
+    /* Style the publish button */
     .publish-button {
+        background-color: deepskyblue;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-decoration: none;
         display: inline-block;
-        padding: 3px 6px;
         font-size: 16px;
+        border-radius: 5px;
+    }
+
+    /* Style the error message */
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+
+    /* Style the form elements */
+    .element {
+        margin: 20px 0;
+        display: flex;
+    }
+
+    /* Style the label element */
+    .element label {
+        flex: 1;
+    }
+
+    /* Style the publish button */
+    .publish-button {
+        background-color: deepskyblue;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        margin-left: 0;
+    }
+
+    .back-button {
+        width: 82px;
+        height: 10px;
+        color: white;
+        display: inline-block;
+        padding: 0px 6px 2px 4px;
+        font-size: 14px;
         font-weight: bold;
         text-align: center;
         text-decoration: none;
-        color: #fff;
-        background-color: green;
+        background-color: deepskyblue;
         border-radius: 4px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
         transition: all 0.2s ease-in-out;
     }
 
-    .publish-button:hover {
-        background-color: darkslategray;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
 
-    .publish-button:active {
-        background-color: #008282;
-        box-shadow: none;
-        transform: translateY(1px);
-    }
-    </style>
+</style>
+
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -106,81 +113,73 @@ session_start();
 
 <body><!-- Navigation bar -->
 <div class="navbar">
-    <a href="#">HomePage</a>
-    <a href="#">Books</a>
+    <a href="home.php">HomePage</a>
+    <a href="author_search.php">Author Search</a>
     <a href="#">Forum</a>
     <a href="#">Reviews</a>
     <a href="#">Profile</a>
-    <a href="#">Logout</a>
-    
+    <a href="index.php">Logout</a>
 </div>
-
 <body>
 
 <form action="publishbook.inc.php" method="post" enctype="multipart/form-data">
-    <?php if (isset($_GET['error'])){ ?>
-        <p class = "error"><?php echo  $_GET['error']; ?></p>
-    <?php }?>
+    <?php if (isset($_GET['error'])) { ?>
+        <p class="error"><?php echo $_GET['error']; ?></p>
+    <?php } ?>
 
     <br>
+    <div class="publish-text" align="center">
+        <h2> You can publish book by giving information below</h2>
+    </div>
     <div class="publish-form">
-        <div class="publish-text">
-    <h2> You can publish book by giving information below</h2>
-        </div>
         <div class="element">
-    <label>Book Title:</label>
-    <br>
-    <input type = "text" name = "bookTitle" placeholder="Enter Book Title">
-            </div>
+            <label>Book Title:</label>
+            <br>
+            <input type="text" name="bookTitle" placeholder="Enter Book Title">
+        </div>
         <div class="element">
             <label>Book Price:</label>
             <br>
-            <input type="number" min="1" name = "bookPrice" placeholder="Price" step="any" />
+            <input type="number" min="1" name="bookPrice" placeholder="Price" step="any"/>
         </div>
+
         <div class="element">
             <label>Pdf File:</label>
             <br>
-            <input type="file" name="file" size="50" />
-
+            <input type="file" name="file" size="50"/>
         </div>
+
         <div class="element">
-        <label>Select Genre:</label>
-    <select name="genre" id="genre">
-        <option value="action">Action</option>
-        <option value="comedy">Comedy</option>
-        <option value="drama">Drama</option>
-        <option value="fantasy">Fantasy</option>
-        <option value="horror">Horror</option>
-        <option value="romance">Romance</option>
-    </select>
+            <label>Select Genre:</label>
+            <select name="genre" id="genre">
+                <option value="action">Action</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="horror">Horror</option>
+                <option value="romance">Romance</option>
+            </select>
 
         </div>
 
         <div class="element">
             <label> You can publish:</label>
-            <button class="publish-button"type = "submit"> Publish Book
+            <button class="publish-button" type="submit"> Publish Book
             </button>
         </div>
 
         <div class="element">
             <label>Or either go back:</label>
-            <button class = "publish-button">
-                <a href="home.php">Go Back</a>
-
+            <button class="publish-button">
+                <a class="back-button" href="home.php">Go Back</a>
             </button>
         </div>
 
         <div class="element">
-            <?php if (isset($_GET['error'])){ ?>
-                <p class = "error"><?php echo  $_GET['error']; ?></p>
-            <?php }?>
+            <?php if (isset($_GET['error'])) { ?>
+                <p class="error"><?php echo $_GET['error']; ?></p>
+            <?php } ?>
         </div>
-
-
-
-
-
-
 </form>
 </body>
 </html>

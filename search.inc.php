@@ -49,6 +49,3 @@ if (isset($_POST['bookTitle']) && isset($_POST['genre']) ){
     }
 
 }
-
-
-

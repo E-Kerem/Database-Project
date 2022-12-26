@@ -24,30 +24,19 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     }
     else{
         $sql = "SELECT * FROM registered WHERE email = '$email' AND hashed_password = '$pass'";
-
-
-
-
         $result = mysqli_query($conn, $sql );
-
-
         if (mysqli_num_rows($result)){
             $row = mysqli_fetch_assoc($result);
             if (strcasecmp($row['email'],$email) == 0 &&$row['hashed_password'] == $pass){
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['name'] = $row['name'];
-
                 $name = $row['name'];
-
                 $author_sql = "SELECT * FROM author A WHERE A.name = '$name'";
                 $author_result = mysqli_query($conn, $author_sql );
-
-
                 if(mysqli_num_rows($author_result)){
                     $row1 = mysqli_fetch_assoc($author_result);
                     $_SESSION['money_amount'] = $row1['money_amount'];
                     $_SESSION['author'] = $row1['name'];
-
                 }
                 else{
                     $_SESSION['money_amount'] = "";
@@ -55,15 +44,12 @@ if(isset($_POST['email']) && isset($_POST['password'])){
                 }
                 $_SESSION['wallet'] = $row['wallet'];
 
-
                 header("Location: home.php");
                 exit();
-
             } else{
                 header("Location: index.php?error=Incorrect email or password");
                 exit();
             }
-
         }
         else{
             header("Location: index.php?error=Incorrect Email name or password");
